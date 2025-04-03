@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chiaxiao.tushumannger.Mapper.usermapper">
+    <select id="checkuser" resultType="integer">
+        select 1 from user where username = #{username} limit 1;
+    </select>
+
+    <select id="userlogincheck" resultType="string">
+        select userpassword from user where username = #{username};
+    </select>
+
+    <select id="adminlogincheck" resultType="string">
+        select userpassword from admin where username = #{username};
+    </select>
+
+</mapper>

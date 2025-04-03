@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chiaxiao.tushumannger.Mapper.userbookmapper">
+    <insert id="save" parameterType="Map">
+        INSERT INTO userbook
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookname != null">bookname,</if>
+            <if test="bookauthor != null">bookauthor,</if>
+            <if test="number != null">number,</if>
+            <if test="description != null">description,</if>
+            <if test="isexist != null">isexist,</if>
+            <if test="type != null">type,</if>
+            <if test="user_id != null">user_id,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="bookname != null">#{bookname},</if>
+            <if test="bookauthor != null">#{bookauthor},</if>
+            <if test="number != null">#{number},</if>
+            <if test="description != null">#{description},</if>
+            <if test="isexist != null">#{isexist},</if>
+            <if test="type != null">#{type},</if>
+            <if test="user_id != null">#{user_id},</if>
+        </trim>
+    </insert>
+
+    <select id="getbyall" resultType="com.chiaxiao.tushumannger.POJO.userBook">
+        select bookid,bookname,bookauthor,number,description,type from userbook
+        <where>
+            <if test="bookname != null">
+                and bookname LIKE CONCAT('%', #{bookname}, '%')
+            </if>
+            <if test="bookauthor !=null">
+                and bookauthor LIKE CONCAT('%', #{bookauthor}, '%')
+            </if>
+            <if test="type !=null">
+                and type LIKE CONCAT('%', #{type}, '%')
+            </if>
+            <if test="user_id !=null">
+                and user_id = #{user_id}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectreturnbook" resultType="com.chiaxiao.tushumannger.POJO.userBook">
+        select bookid,bookname,bookauthor,number,description,type from userbook
+        <where>
+            <if test="bookname != null">
+                and bookname = #{bookname}
+            </if>
+            <if test="bookauthor !=null">
+                and bookauthor = #{bookauthor}
+            </if>
+            <if test="type !=null">
+                and type = #{type}
+            </if>
+            <if test="user_id">
+                and user_id= #{user_id}
+            </if>
+        </where>
+    </select>
+</mapper>

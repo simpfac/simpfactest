@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chiaxiao.tushumannger.Mapper.bookmapper">
+    <select id="getbyall" resultType="com.chiaxiao.tushumannger.POJO.Book">
+        select bookid,bookname,bookauthor,number,description,isexist,type from book
+        <where>
+            <if test="bookname != null">
+                and bookname LIKE CONCAT('%', #{bookname}, '%')
+            </if>
+            <if test="bookauthor !=null">
+                and bookauthor LIKE CONCAT('%', #{bookauthor}, '%')
+            </if>
+            <if test="type !=null">
+                and type LIKE CONCAT('%', #{type}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.chiaxiao.tushumannger.POJO.Book">
+        INSERT INTO book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookname != null">bookname,</if>
+            <if test="bookauthor != null">bookauthor,</if>
+            <if test="number != null">number,</if>
+            <if test="description != null">description,</if>
+            <if test="isexist != null">isexist,</if>
+            <if test="type != null">type,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="bookname != null">#{bookname},</if>
+            <if test="bookauthor != null">#{bookauthor},</if>
+            <if test="number != null">#{number},</if>
+            <if test="description != null">#{description},</if>
+            <if test="isexist != null">#{isexist},</if>
+            <if test="type != null">#{type},</if>
+        </trim>
+    </insert>
+
+    <delete id="delete" parameterType="com.chiaxiao.tushumannger.POJO.Book">
+        delete from book
+        <where>
+            <if test="bookname != null">
+                and bookname = #{bookname}
+            </if>
+            <if test="bookauthor !=null">
+                and bookauthor = #{bookauthor}
+            </if>
+            <if test="type !=null">
+                and type = #{type}
+            </if>
+        </where>
+    </delete>
+</mapper>
